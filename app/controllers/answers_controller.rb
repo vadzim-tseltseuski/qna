@@ -6,9 +6,9 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.new(answer_params)
 
-    if @answer.save
+    if @answer.valid? && @answer.save
       redirect_to @question
     else
       render :new
