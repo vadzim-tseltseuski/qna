@@ -6,10 +6,13 @@ h2 Questions
     thead
       tr
         th Title
+        th Action
       tbody
         - @questions.each do |question|
           tr
             td
               = question.title
+            td
+              = link_to 'Show', question_path(question)
 - else
   p There are no any questions
