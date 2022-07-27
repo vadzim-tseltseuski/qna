@@ -25,7 +25,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap'
+gem 'devise'
 gem 'slim-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -55,6 +57,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
+  gem 'launchy'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
