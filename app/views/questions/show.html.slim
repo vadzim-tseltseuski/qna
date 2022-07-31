@@ -14,3 +14,12 @@ p= @question.body
 
 -else
   p There are no any answers
+
+p Answer
+= render 'shared/errors', resource: @answer
+
+= form_with model: [@question, @answer], local: true do |f|
+  = f.label :body
+  = f.text_area :body
+
+  = f.submit 'Send answer'
