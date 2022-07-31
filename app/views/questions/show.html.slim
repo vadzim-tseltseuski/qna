@@ -1,5 +1,7 @@
 h1= @question.title
 p= @question.body
+- if current_user&.creator_of?(@question)
+  = link_to 'Delete question', question_path(@question), method: :delete
 
 -if @question.answers.present?
   table
@@ -11,6 +13,9 @@ p= @question.body
           tr
             td
               = answer.body
+            td
+              - if current_user&.creator_of?(answer)
+                = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete
 
 -else
   p There are no any answers

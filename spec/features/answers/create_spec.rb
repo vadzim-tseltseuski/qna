@@ -30,4 +30,15 @@ feature 'User can answer to question', %q{
       expect(page).to have_content "Body can't be blank"
     end
   end
+
+  describe 'Unauthenticated user' do
+    scenario 'tries to answer to question' do
+      visit question_path(question)
+      fill_in 'Body', with: 'answer body'
+      click_on 'Send answer'
+
+      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    end
+  end
+
 end
