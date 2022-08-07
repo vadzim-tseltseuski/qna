@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
     @answer = current_user.answers.create(answer_params)
     @answer.assign_attributes(question: @question)
 
-    if @answer.valid? && @answer.save
+    if @answer.save
       redirect_to @question
     else
       render 'questions/show'
