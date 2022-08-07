@@ -2,23 +2,19 @@
 
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_question, only: %i[new create]
-  before_action :set_answer, only: %i[destroy]
-  before_action :check_author, only: %i[destroy]
-
-  def new
-    @answer = @question.answers.new
-  end
+  before_action :find_question, only: %i[create]
+  before_action :set_answer, only: %i[update destroy]
+  before_action :check_author, only: %i[update destroy]
 
   def create
     @answer = current_user.answers.create(answer_params)
     @answer.assign_attributes(question: @question)
+    @answer.save
+  end
 
-    if @answer.save
-      redirect_to @question
-    else
-      render 'questions/show'
-    end
+  def update
+    @question = @answer.question
+    @answer.update(answer_params)
   end
 
   def destroy
