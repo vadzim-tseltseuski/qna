@@ -1,8 +1,13 @@
 = content_tag :div, class: "answer-card", data: { answer_id: answer.id } do
-  p= answer.body
+  p class="answer-text #{'top-answer' if answer.top?}"= answer.body
   - if current_user&.creator_of?(answer)
     = link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
     = link_to 'Delete answer', answer_path(answer), remote: true, method: :delete
+  - if current_user&.creator_of?(answer.question)
+    p = link_to 'Mark as top',
+                  set_as_top_answer_path(answer),
+                  method: :post, remote: true,
+                  class: "#{'hidden' if answer.top?}"
 
   = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
     = f.label :body, 'Your answer'

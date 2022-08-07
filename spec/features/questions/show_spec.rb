@@ -28,7 +28,9 @@ feature 'User can see question and answers', %q{
       given(:question) { create(:question, :with_answers) }
 
       scenario 'user sees question and answers' do
-        expect(page).to have_content(question.answers.first.body, count: 3)
+        question.answers.map(&:body).each do |q|
+          expect(page).to have_content(q, count: 1)
+        end
       end
     end
   end
@@ -53,7 +55,9 @@ feature 'User can see question and answers', %q{
       given(:question) { create(:question, :with_answers) }
 
       scenario 'user sees question and answers' do
-        expect(page).to have_content(question.answers.first.body, count: 3)
+        question.answers.map(&:body).each do |q|
+          expect(page).to have_content(q, count: 1)
+        end
       end
     end
   end

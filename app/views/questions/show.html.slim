@@ -5,7 +5,7 @@ p= @question.body
 
 .answers
   -if @question.answers.present?
-    = render @question.answers
+    = render @question.sorted_answers
   -else
     p There are no any answers
 

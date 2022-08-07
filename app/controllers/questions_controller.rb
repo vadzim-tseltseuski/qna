@@ -45,10 +45,10 @@ class QuestionsController < ApplicationController
   private
 
   def check_author
-    unless current_user.creator_of?(@question)
-      redirect_to question_path(@question),
-                  alert: 'Don`t touch - It`s not your'
-    end
+    return if current_user.creator_of?(@question)
+
+    redirect_to question_path(@question),
+                alert: 'Don`t touch - It`s not your'
   end
 
   def load_question

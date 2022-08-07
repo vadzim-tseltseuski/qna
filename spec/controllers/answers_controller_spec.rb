@@ -4,6 +4,7 @@ RSpec.describe AnswersController, type: :controller do
   let(:answer) { create(:answer) }
   let(:user1) { create(:user) }
   let(:user2) { create(:user) }
+  let(:answer_body) { answer.body }
 
 
   before { login(user1) }
@@ -64,7 +65,7 @@ RSpec.describe AnswersController, type: :controller do
         it 'does not change answer' do
           answer.reload
 
-          expect(answer.body).to eq 'Answer_Body'
+          expect(answer.body).to eq answer_body
         end
 
         it 'renders update view' do
@@ -79,7 +80,7 @@ RSpec.describe AnswersController, type: :controller do
         before { patch :update, params: { question_id: answer.question, id: answer, answer: { body: 'new body' } } }
         it 'does not change answer' do
           answer.reload
-          expect(answer.body).to eq 'Answer_Body'
+          expect(answer.body).to eq answer_body
         end
         it 're-renders edit view' do
           expect(response).to redirect_to question_path(answer.question)
@@ -108,6 +109,41 @@ RSpec.describe AnswersController, type: :controller do
         delete :destroy, params: { question_id: answer.question, id: answer }
 
         expect(response).to redirect_to question_path(answer.question)
+      end
+    end
+  end
+
+  describe 'POST #set_as_top' do
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer, question: question) }
+
+    before { login(user1) }
+
+    context 'own question' do
+      before { question.update(user: user1) }
+
+      it 'changes best answer' do
+        post :set_as_top, params: { id: answer.id }, format: :js
+        question.reload
+        expect(question.top_answer).to eq answer
+      end
+
+      it 're-render set_as_top view' do
+        patch :set_as_top, params: { id: answer.id }, format: :js
+        expect(response).to render_template :set_as_top
+      end
+    end
+
+    context 'not own question' do
+      it 'doesnt change best answer' do
+        post :set_as_top, params: { id: answer.id }, format: :js
+        question.reload
+        expect(question.top_answer).to_not eq answer
+      end
+
+      it 'rre-render set_as_top view' do
+        post :set_as_top, params: { id: answer.id }, format: :js
+        expect(response).to render_template :set_as_top
       end
     end
   end
