@@ -2,10 +2,13 @@ Documentation:
   Enabled: false
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'node_modules/**/*'
     - 'db/**/*'
     - 'bin/**/*'
+    - 'config/**/*'
+    - 'spec/**/*'
 
 Metrics/ClassLength:
   Description: 'Avoid classes longer than 100 lines of code.'
