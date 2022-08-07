@@ -1,0 +1,3 @@
+<% unless @answer.persisted? %>
+  $('.answer-card[data-answer-id="<%= @answer.id %>"]').remove();
+<% end %>

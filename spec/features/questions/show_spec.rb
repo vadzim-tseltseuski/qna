@@ -7,7 +7,7 @@ feature 'User can see question and answers', %q{
 } do
   given(:user) { create(:user) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
       visit question_path(question)
@@ -33,7 +33,7 @@ feature 'User can see question and answers', %q{
     end
   end
 
-  describe 'Unuthenticated user' do
+  describe 'Unuthenticated user', js: true do
     background do
       visit question_path(question)
 
