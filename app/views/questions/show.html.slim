@@ -3,27 +3,18 @@ p= @question.body
 - if current_user&.creator_of?(@question)
   = link_to 'Delete question', question_path(@question), method: :delete
 
--if @question.answers.present?
-  table
-    thead
-      tr
-        th Answers
-      tbody
-        - @question.answers.each do |answer|
-          tr
-            td
-              = answer.body
-            td
-              - if current_user&.creator_of?(answer)
-                = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete
+.answers
+  -if @question.answers.present?
+    = render @question.sorted_answers
+  -else
+    p There are no any answers
 
--else
-  p There are no any answers
 
 p Answer
-= render 'shared/errors', resource: @answer
+.answer-errors
+  = render 'shared/errors', resource: @answer
 
-= form_with model: [@question, @answer], local: true do |f|
+= form_with model: [@question, @answer], class: 'new-answer', local: false do |f|
   = f.label :body
   = f.text_area :body
 

@@ -7,7 +7,7 @@ feature 'User can see question and answers', %q{
 } do
   given(:user) { create(:user) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
       visit question_path(question)
@@ -28,12 +28,14 @@ feature 'User can see question and answers', %q{
       given(:question) { create(:question, :with_answers) }
 
       scenario 'user sees question and answers' do
-        expect(page).to have_content(question.answers.first.body, count: 3)
+        question.answers.map(&:body).each do |q|
+          expect(page).to have_content(q, count: 1)
+        end
       end
     end
   end
 
-  describe 'Unuthenticated user' do
+  describe 'Unuthenticated user', js: true do
     background do
       visit question_path(question)
 
@@ -53,7 +55,9 @@ feature 'User can see question and answers', %q{
       given(:question) { create(:question, :with_answers) }
 
       scenario 'user sees question and answers' do
-        expect(page).to have_content(question.answers.first.body, count: 3)
+        question.answers.map(&:body).each do |q|
+          expect(page).to have_content(q, count: 1)
+        end
       end
     end
   end

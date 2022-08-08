@@ -2,28 +2,30 @@
 
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_question, only: %i[new create]
-  before_action :set_answer, only: %i[destroy]
-  before_action :check_author, only: %i[destroy]
-
-  def new
-    @answer = @question.answers.new
-  end
+  before_action :find_question, only: %i[create]
+  before_action :set_answer, only: %i[update destroy set_as_top]
+  before_action :check_author, only: %i[update destroy]
 
   def create
     @answer = current_user.answers.create(answer_params)
     @answer.assign_attributes(question: @question)
+    @answer.save
+  end
 
-    if @answer.save
-      redirect_to @question
-    else
-      render 'questions/show'
-    end
+  def update
+    @question = @answer.question
+    @answer.update(answer_params)
   end
 
   def destroy
+    @question = @answer.question
     @answer.destroy
-    redirect_to question_path(@answer.question), notice: 'Answer was successfully deleted'
+  end
+
+  def set_as_top
+    return unless current_user.creator_of?(@answer.question)
+
+    @answer.set_as_top!
   end
 
   private
@@ -33,10 +35,10 @@ class AnswersController < ApplicationController
   end
 
   def check_author
-    unless current_user.creator_of?(@answer)
-      redirect_to question_path(@answer.question),
-                  alert: 'Don`t touch - It`s not your'
-    end
+    return if current_user.creator_of?(@answer)
+
+    redirect_to question_path(@answer.question),
+                alert: 'Don`t touch - It`s not your'
   end
 
   def find_question
