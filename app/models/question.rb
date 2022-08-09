@@ -5,6 +5,8 @@ class Question < ApplicationRecord
   belongs_to :user
   belongs_to :top_answer, required: false, class_name: 'Answer', dependent: :destroy, optional: true
 
+  has_many_attached :files
+
   validates :title, :body, :user, presence: true
 
   def sorted_answers
