@@ -29,6 +29,19 @@ feature 'User can edit answer', %q{
       end
     end
 
+    scenario 'edits his answer with attached files' do
+      visit question_path(question1)
+      click_on 'Edit answer'
+
+      within '.answers' do
+        attach_file 'Files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Save'
+      end
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
+
     scenario "edits answer with errors" do
       visit question_path(question1)
       click_on 'Edit answer'
