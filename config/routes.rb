@@ -9,4 +9,6 @@ Rails.application.routes.draw do
       post 'set_as_top', on: :member
     end
   end
+
+  resources :files, only: %i[destroy]
 end
