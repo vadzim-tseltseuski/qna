@@ -19,7 +19,11 @@ p Answer
   = render 'shared/errors', resource: @answer
 
 = form_with model: [@question, @answer], class: 'new-answer', local: false do |f|
-  = f.label :body
-  = f.text_area :body
+  p
+    = f.label :body
+    = f.text_area :body
+  p
+    = f.label :files
+    = f.file_field :files, multiple: true, direct_upload: true
 
   = f.submit 'Send answer'
