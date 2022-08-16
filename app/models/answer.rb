@@ -9,6 +9,8 @@ class Answer < ApplicationRecord
           inverse_of: 'top_answer',
           dependent: :nullify
 
+  has_many_attached :files
+
   validates :body, :user, presence: true
 
   def set_as_top!

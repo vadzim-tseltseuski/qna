@@ -30,11 +30,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question, notice: 'Your question was successfully edited'
-    else
-      render :edit
-    end
+    @question.update(question_params)
   end
 
   def destroy
@@ -52,10 +48,10 @@ class QuestionsController < ApplicationController
   end
 
   def load_question
-    @question = Question.find(params[:id])
+    @question = Question.with_attached_files.find(params[:id])
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 end

@@ -1,7 +1,5 @@
-h1= @question.title
-p= @question.body
-- if current_user&.creator_of?(@question)
-  = link_to 'Delete question', question_path(@question), method: :delete
+.question-errors
+= render @question
 
 .answers
   -if @question.answers.present?
@@ -15,7 +13,11 @@ p Answer
   = render 'shared/errors', resource: @answer
 
 = form_with model: [@question, @answer], class: 'new-answer', local: false do |f|
-  = f.label :body
-  = f.text_area :body
+  p
+    = f.label :body
+    = f.text_area :body
+  p
+    = f.label :files
+    = f.file_field :files, multiple: true, direct_upload: true
 
   = f.submit 'Send answer'
