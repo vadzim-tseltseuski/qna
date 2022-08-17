@@ -4,8 +4,9 @@ div
     - links.each do |link|
       li id="link-#{link.id}"
         - if link.gist?
-          - link.gist_contents.each do |content|
-            div= content
+          div data-gist = "#{link.url}" = link_to link.url
+          javascript:
+            gistLoader();
         - else
           = link_to link.name, link.url, target: '_blank'
 

@@ -10,22 +10,4 @@ class Link < ApplicationRecord
   def gist?
     URI(url).host == 'gist.github.com'
   end
-
-  def gist_contents
-    client = Octokit::Client.new(access_token: ENV['GISTS_TOKEN'])
-    gist = client.gist(gist_id)
-    files = {}
-
-    gist.files.each do |k, v|
-      files[k] = v[:content]
-    end
-
-    files.values
-  end
-
-  private
-
-  def gist_id
-    url.split('/').last
-  end
 end

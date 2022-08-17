@@ -20,8 +20,4 @@ RSpec.describe Link, type: :model do
   it 'method gist? for another url' do
     expect(link.gist?).to eq false
   end
-
-  it 'method gist_contents should be return array with content gist' do
-    expect(gist_link.gist_contents).to eq ["Aut at quam laborum?\nincidunt\nautem\nMuradin Bronzebeard"]
-  end
 end
