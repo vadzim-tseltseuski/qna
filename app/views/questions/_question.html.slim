@@ -9,6 +9,7 @@
           - if current_user&.creator_of?(@question)
             span = link_to 'Delete file', file_path(file, format: :js), method: :delete, remote: true, class: 'delete-file'
 
+  = render 'shared/links', links: @question.links if @question.links.exists?
 
   - if current_user&.creator_of?(@question)
     = link_to 'Delete question', question_path(@question), method: :delete
@@ -18,12 +19,16 @@
                 local: false,
                 class: 'hidden',
                 html: { id: "edit-question-#{@question.id}" } do |f|
+      p
       = f.label :title
       = f.text_field :title
+      p
       = f.label :body
       = f.text_area :body
-
+      p
       = f.label :files
       = f.file_field :files, multiple: true, direct_upload: true
+      #links
+        = link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
 
       = f.submit 'Save'

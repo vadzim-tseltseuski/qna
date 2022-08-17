@@ -31,7 +31,10 @@ gem 'jquery-rails'
 gem 'slim-rails'
 
 # For nested forms
-gem "cocoon"
+gem 'cocoon'
+
+# for gist
+gem 'octokit', '~> 4.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

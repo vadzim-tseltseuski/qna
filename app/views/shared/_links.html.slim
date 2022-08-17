@@ -1,0 +1,13 @@
+div
+  p Links:
+  ul
+    - links.each do |link|
+      li id="link-#{link.id}"
+        - if link.gist?
+          - link.gist_contents.each do |content|
+            div= content
+        - else
+          = link_to link.name, link.url, target: '_blank'
+
+      - if current_user&.creator_of?(link.linkable)
+        = link_to 'Delete link', link_path(link), remote: true, method: :delete
