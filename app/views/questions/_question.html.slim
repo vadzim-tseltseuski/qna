@@ -1,6 +1,11 @@
 .question
   h1= @question.title
   p= @question.body
+  - if @question.reward
+    .reward
+      p= 'Reward is'
+      = image_tag(@question.reward.image)
+
   - if @question.files.attached?
     .question-files
       - @question.files.each do |file|

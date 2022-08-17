@@ -18,6 +18,7 @@ class Answer < ApplicationRecord
 
   def set_as_top!
     question.update(top_answer: self)
+    question.reward&.update(answer: self)
   end
 
   def top?

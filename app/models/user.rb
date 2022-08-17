@@ -12,4 +12,8 @@ class User < ApplicationRecord
   def creator_of?(resource)
     resource.user_id == id
   end
+
+  def rewards
+    Reward.where(answer_id: answers)
+  end
 end
