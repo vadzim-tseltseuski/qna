@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Question < ApplicationRecord
+  include Votable
+
   belongs_to :user
   belongs_to :top_answer, required: false, class_name: 'Answer', dependent: :destroy, optional: true
   has_one :reward, dependent: :destroy

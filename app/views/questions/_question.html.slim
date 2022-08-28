@@ -1,6 +1,9 @@
-.question
+.question data-question-id="#{@question.id}"
   h1= @question.title
   p= @question.body
+  p Question rating:
+
+  = render "shared/votes", votable: @question
   - if @question.reward
     .reward
       p= 'Reward is'

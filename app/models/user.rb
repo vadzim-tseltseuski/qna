@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   def creator_of?(resource)
     resource.user_id == id
@@ -15,5 +16,9 @@ class User < ApplicationRecord
 
   def rewards
     Reward.where(answer_id: answers)
+  end
+
+  def able_to_vote?(votable)
+    !creator_of?(votable) && votable.votes.pluck(:user_id).exclude?(id)
   end
 end
