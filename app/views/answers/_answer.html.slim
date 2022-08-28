@@ -7,21 +7,25 @@
         - if current_user&.creator_of?(answer)
           span = link_to 'Delete file', file_path(file, format: :js), method: :delete, remote: true, class: 'delete-file'
 
+  = render 'shared/links', links: answer.links if answer.links.exists?
+
   - if current_user&.creator_of?(answer)
-    = link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-    = link_to 'Delete answer', answer_path(answer), remote: true, method: :delete
+    p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+    p= link_to 'Delete answer', answer_path(answer), remote: true, method: :delete
 
   - if current_user&.creator_of?(answer.question)
-    p = link_to 'Mark as top',
-                  set_as_top_answer_path(answer),
-                  method: :post, remote: true,
-                  class: "#{'hidden' if answer.top?}"
+    p= link_to 'Mark as top',
+                set_as_top_answer_path(answer),
+                method: :post, remote: true,
+                class: "#{'hidden' if answer.top?}"
 
   = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+    p
     = f.label :body, 'Your answer'
     = f.text_area :body
-
+    p
     = f.label :files
     = f.file_field :files, multiple: true, direct_upload: true
 
+    p= link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
     = f.submit 'Save'

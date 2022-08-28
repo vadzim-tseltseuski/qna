@@ -10,7 +10,7 @@ feature 'User can choose the top answer', "
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
   given!(:answers) { create_list(:answer, 4, question: question, user: user) }
-
+  given!(:reward) { create(:reward, question: question) }
   given(:other_user) { create(:user) }
   given(:other_question) { create(:question, user: other_user) }
   given!(:other_answers) { create_list(:answer, 4, question: other_question, user: other_user) }
@@ -45,6 +45,11 @@ feature 'User can choose the top answer', "
 
       question.reload
       expect(page.all(:css, '.answers .answer-text').map(&:text)).to eq question.sorted_answers.map(&:body)
+
+      visit rewards_path
+
+      expect(page).to have_css('img')
+      expect(page).to have_text(reward.name)
     end
   end
 end

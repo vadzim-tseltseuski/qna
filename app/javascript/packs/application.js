@@ -5,12 +5,16 @@
 
 require('../util/answers');
 require('../util/questions');
+require("@nathanvda/cocoon");
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import 'bootstrap'
+import gistLoader from "easy-gist-async";
+
+window.gistLoader = gistLoader;
 
 Rails.start()
 Turbolinks.start()
