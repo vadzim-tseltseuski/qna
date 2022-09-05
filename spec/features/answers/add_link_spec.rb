@@ -39,6 +39,7 @@ feature 'User can add links for answer', %q{
       end
 
       click_on 'Send answer'
+      visit current_path
 
       within ".answers" do
         expect(page).to have_link 'MyLink', href: url

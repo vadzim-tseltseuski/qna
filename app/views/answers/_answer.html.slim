@@ -1,5 +1,7 @@
 = content_tag :div, class: "answer-card", data: { answer_id: answer.id } do
   p class="answer-text #{'top-answer' if answer.top?}"= answer.body
+  p Answer rating:
+  = render "shared/votes", votable: answer
   - if answer.files.attached?
     - answer.files.each do |file|
       .file id="file-#{file.id}"

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
+  include Voted
+
   before_action :authenticate_user!
   before_action :find_question, only: %i[create]
   before_action :set_answer, only: %i[update destroy set_as_top]
@@ -9,7 +11,21 @@ class AnswersController < ApplicationController
   def create
     @answer = current_user.answers.create(answer_params)
     @answer.assign_attributes(question: @question)
-    @answer.save
+
+    respond_to do |format|
+      if @answer.save
+        format.json do
+          render json: [answer: @answer,
+                        links: @answer.links,
+                        files: @answer.files.collect { |f| f.filename.to_s }]
+        end
+      else
+        format.json do
+          render json: @answer.errors.full_messages,
+                 status: :unprocessable_entity
+        end
+      end
+    end
   end
 
   def update
