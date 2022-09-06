@@ -8,6 +8,8 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i[update destroy set_as_top]
   before_action :check_author, only: %i[update destroy]
 
+  after_action :publish_answer, only: %i[create]
+
   def create
     @answer = current_user.answers.create(answer_params)
     @answer.assign_attributes(question: @question)
@@ -65,5 +67,14 @@ class AnswersController < ApplicationController
     params.require(:answer).permit(:body,
                                    files: [],
                                    links_attributes: %i[name url _destroy])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast 'answers',
+                                 question_id: @answer.question.id,
+                                 answer: @answer.body,
+                                 user_id: @answer.user_id
   end
 end

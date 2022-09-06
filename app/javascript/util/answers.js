@@ -8,9 +8,6 @@ $(document).on('turbolinks:load', function(){
 
   $('form.new-answer').on('ajax:success', function(e) {
     let data = e.detail[0][0]
-    console.log(e)
-    console.log(e.detail[0])
-    console.log(e.detail[0][0])
     let answer = data.answer
     let links = data.links
     let files = data.files

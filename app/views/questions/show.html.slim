@@ -1,15 +1,16 @@
 .question-errors
 = render 'shared/errors', resource: @question
-= render @question
+= render 'question_card'
 
 h2 Answers
 .answer-errors
   = render 'shared/errors', resource: @answer
-.answers
+.answers.answers-list
   -if @question.answers.present?
     = render @question.sorted_answers
   -else
-    p There are no any answers
+    .no_answers
+      p There are no any answers
 
 
 p New Answer

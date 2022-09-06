@@ -33,6 +33,8 @@ gem 'slim-rails'
 # For nested forms
 gem 'cocoon'
 
+gem 'gon'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

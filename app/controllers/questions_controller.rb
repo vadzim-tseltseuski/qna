@@ -7,12 +7,16 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: %i[show edit update destroy]
   before_action :check_author, only: %i[destroy edit update]
 
+  after_action :publish_question, only: %i[create]
+
   def index
     @questions = Question.all
   end
 
   def show
     @answer = Answer.new
+    gon.question_id = @question.id
+    Rails.logger.info("SET #{gon.question_id}")
   end
 
   def new
@@ -60,5 +64,17 @@ class QuestionsController < ApplicationController
                                      files: [],
                                      links_attributes: %i[name url _destroy],
                                      reward_attributes: %i[name image])
+  end
+
+  def publish_question
+    return if @question.errors.any?
+
+    ActionCable.server.broadcast(
+      'questions',
+      ApplicationController.render(
+        partial: 'questions/question',
+        locals: { question: @question }
+      )
+    )
   end
 end
