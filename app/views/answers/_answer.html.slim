@@ -31,3 +31,8 @@
 
     p= link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
     = f.submit 'Save'
+
+  .answer-comments
+    h3 Comments
+    = render 'shared/comments', commentable: answer
+    = render 'shared/comment_form', commentable: answer
