@@ -46,7 +46,9 @@ module Commented
   def publish_comment
     return if @comment.errors.any?
 
-    ActionCable.server.broadcast 'comments', {
+    question_id = @comment.commentable_type == 'Answer' ? @commentable.question.id : @commentable.id
+
+    ActionCable.server.broadcast "comments_#{question_id}", {
       comment: @comment.body,
       commentable_id: @comment.commentable_id,
       commentable_type: @comment.commentable_type,

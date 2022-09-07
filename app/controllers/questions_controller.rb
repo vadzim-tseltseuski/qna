@@ -17,7 +17,6 @@ class QuestionsController < ApplicationController
   def show
     @answer = Answer.new
     gon.question_id = @question.id
-    Rails.logger.info("SET #{gon.question_id}")
   end
 
   def new
