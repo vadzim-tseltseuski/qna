@@ -10,6 +10,8 @@ RSpec.describe Answer, type: :model do
     it { should belong_to :user }
     it { should have_one(:question_where_is_top).dependent(:nullify) }
 
+    it_behaves_like 'commentable'
+
     it 'has many attached files' do
       expect(Answer.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)
     end

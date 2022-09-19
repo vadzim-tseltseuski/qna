@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  it_behaves_like 'commented'
+
   let(:answer) { create(:answer) }
   let(:user1) { create(:user) }
   let(:user2) { create(:user) }
   let(:answer_body) { answer.body }
+
 
 
   before { login(user1) }

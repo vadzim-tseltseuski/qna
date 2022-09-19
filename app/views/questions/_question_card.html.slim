@@ -1,0 +1,47 @@
+.question data-question-id="#{@question.id}"
+  h1= @question.title
+  p= @question.body
+  p Question rating:
+
+  = render "shared/votes", votable: @question
+  - if @question.reward
+    .reward
+      p= 'Reward is'
+      = image_tag(@question.reward.image)
+
+  - if @question.files.attached?
+    .question-files
+      - @question.files.each do |file|
+        .file id="file-#{file.id}"
+          p= link_to file.filename.to_s, url_for(file)
+          - if current_user&.creator_of?(@question)
+            span = link_to 'Delete file', file_path(file, format: :js), method: :delete, remote: true, class: 'delete-file'
+
+  = render 'shared/links', links: @question.links if @question.links.exists?
+
+  - if current_user&.creator_of?(@question)
+    = link_to 'Delete question', question_path(@question), method: :delete
+    = link_to 'Edit question', '#', class: 'edit-question-link', data: { question_id: @question.id }
+
+    = form_with model: @question,
+                local: false,
+                class: 'hidden',
+                html: { id: "edit-question-#{@question.id}" } do |f|
+      p
+      = f.label :title
+      = f.text_field :title
+      p
+      = f.label :body
+      = f.text_area :body
+      p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
+      #links
+        = link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
+
+      = f.submit 'Save'
+
+  .question-comments
+    h3 Comments
+    = render 'shared/comments', commentable: @question
+    = render 'shared/comment_form', commentable: @question

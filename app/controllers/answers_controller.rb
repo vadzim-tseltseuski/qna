@@ -2,11 +2,14 @@
 
 class AnswersController < ApplicationController
   include Voted
+  include Commented
 
   before_action :authenticate_user!
   before_action :find_question, only: %i[create]
   before_action :set_answer, only: %i[update destroy set_as_top]
   before_action :check_author, only: %i[update destroy]
+
+  after_action :publish_answer, only: %i[create]
 
   def create
     @answer = current_user.answers.create(answer_params)
@@ -65,5 +68,14 @@ class AnswersController < ApplicationController
     params.require(:answer).permit(:body,
                                    files: [],
                                    links_attributes: %i[name url _destroy])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast "answers_#{@answer.question_id}",
+                                 question_id: @answer.question.id,
+                                 answer: @answer.body,
+                                 user_id: @answer.user_id
   end
 end

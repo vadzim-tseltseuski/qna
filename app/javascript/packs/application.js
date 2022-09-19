@@ -5,6 +5,7 @@
 
 require('../util/answers');
 require('../util/questions');
+require('../util/comments');
 require('../util/votes');
 require("@nathanvda/cocoon");
 
