@@ -28,10 +28,17 @@ gem 'aws-sdk-s3', require: false
 gem 'bootstrap'
 gem 'devise'
 gem 'jquery-rails'
+gem 'letter_opener'
 gem 'slim-rails'
 
 # For nested forms
 gem 'cocoon'
+
+# For auth
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-vkontakte'
 
 gem 'gon'
 
@@ -62,6 +69,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
+  gem 'capybara-email'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'launchy'
