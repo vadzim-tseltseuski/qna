@@ -6,16 +6,16 @@
     - answer.files.each do |file|
       .file id="file-#{file.id}"
         p= link_to file.filename.to_s, url_for(file)
-        - if current_user&.creator_of?(answer)
+        - if current_user && can?(:destroy, answer)
           span = link_to 'Delete file', file_path(file, format: :js), method: :delete, remote: true, class: 'delete-file'
 
   = render 'shared/links', links: answer.links if answer.links.exists?
 
-  - if current_user&.creator_of?(answer)
+  - if current_user && can?(:update, answer)
     p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
     p= link_to 'Delete answer', answer_path(answer), remote: true, method: :delete
 
-  - if current_user&.creator_of?(answer.question)
+  - if current_user && can?(:set_as_top, answer)
     p= link_to 'Mark as top',
                 set_as_top_answer_path(answer),
                 method: :post, remote: true,

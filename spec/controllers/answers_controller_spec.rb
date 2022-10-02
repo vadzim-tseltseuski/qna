@@ -74,7 +74,7 @@ RSpec.describe AnswersController, type: :controller do
           expect(answer.body).to eq answer_body
         end
         it 're-renders edit view' do
-          expect(response).to redirect_to question_path(answer.question)
+          expect(response).to redirect_to root_path
         end
       end
   end
@@ -99,7 +99,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'redirects to question' do
         delete :destroy, params: { question_id: answer.question, id: answer }
 
-        expect(response).to redirect_to question_path(answer.question)
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -132,9 +132,9 @@ RSpec.describe AnswersController, type: :controller do
         expect(question.top_answer).to_not eq answer
       end
 
-      it 'rre-render set_as_top view' do
+      it 're-render set_as_top view' do
         post :set_as_top, params: { id: answer.id }, format: :js
-        expect(response).to render_template :set_as_top
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
