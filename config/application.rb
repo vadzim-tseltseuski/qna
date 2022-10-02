@@ -10,6 +10,7 @@ Bundler.require(*Rails.groups)
 
 module Qna
   class Application < Rails::Application
+    config.autoload_paths << Rails.root.join('app')
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
@@ -20,6 +21,7 @@ module Qna
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
 
     config.generators do |g|
       g.test_framework :rspec,
