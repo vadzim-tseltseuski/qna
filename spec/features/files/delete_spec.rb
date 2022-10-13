@@ -7,7 +7,7 @@ feature 'User can delete attachment files', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:question) { create(:question, :with_files, user: user) }
+  given(:question) { create(:question, :with_file, user: user) }
 
   describe 'Authenticated user', js: true do
 

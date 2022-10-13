@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
   root to: "questions#index"
 
@@ -31,6 +32,19 @@ Rails.application.routes.draw do
 
   resources :links, only: %i[destroy]
   resources :rewards, only: %i[index]
+
+  namespace :api do
+    namespace :v1 do
+      resource :profiles, only: [] do
+        get :me, on: :collection
+        get :others, on: :collection
+      end
+      resources :questions, only: %i[index show create update destroy] do
+        get :answers, on: :member
+        resources :answers, shallow: true, only: %i[show create update destroy]
+      end
+    end
+  end
 
 
   mount ActionCable.server => '/cable'

@@ -9,8 +9,8 @@ feature 'User can delete question', %q{
   given(:user) { create(:user) }
   given(:other_user) { create(:user) }
   given(:question) { create(:question, user: user) }
-  given(:question_with_files) { create(:question, :with_files, user: user) }
-  given(:other_question_with_files) { create(:question, :with_files, user: other_user) }
+  given(:question_with_files) { create(:question, :with_file, user: user) }
+  given(:other_question_with_files) { create(:question, :with_file, user: other_user) }
 
   describe 'Authenticated user' do
     given(:another_question) { create(:question) }

@@ -18,8 +18,8 @@ feature 'User can delete answer', %q{
   given!(:another_question) { create(:question) }
   given!(:another_answer) { create(:answer, question: another_question) }
 
-  given!(:answer_with_files) { create(:answer, :with_files, question: question2, user: user) }
-  given!(:other_answer_with_files) { create(:answer, :with_files, question: question2, user: other_user) }
+  given!(:answer_with_files) { create(:answer, :with_file, question: question2, user: user) }
+  given!(:other_answer_with_files) { create(:answer, :with_file, question: question2, user: other_user) }
 
   describe 'Authenticated user', js: true do
 
