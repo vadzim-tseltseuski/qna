@@ -6,9 +6,9 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
   before_action :load_question, only: %i[show edit update destroy]
-  before_action :check_author, only: %i[destroy edit update]
-
   after_action :publish_question, only: %i[create]
+
+  authorize_resource
 
   def index
     @questions = Question.all
@@ -46,13 +46,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def check_author
-    return if current_user.creator_of?(@question)
-
-    redirect_to question_path(@question),
-                alert: 'Don`t touch - It`s not your'
-  end
 
   def load_question
     @question = Question.with_attached_files.find(params[:id])

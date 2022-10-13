@@ -6,7 +6,9 @@ class FilesController < ApplicationController
   before_action :find_record
 
   def destroy
-    @file.purge if current_user.creator_of?(@record)
+    authorize! :destroy, @file
+
+    @file.purge
   end
 
   private

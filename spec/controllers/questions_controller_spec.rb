@@ -71,7 +71,7 @@ RSpec.describe QuestionsController, type: :controller do
       before { get :edit, params: { id: question } }
 
       it 'redirects to question path' do
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -157,7 +157,7 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq 'QuestionBody'
       end
       it 're-renders edit view' do
-        expect(response).to redirect_to question_path(question)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -187,7 +187,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'redirects to question' do
         delete :destroy, params: { id: question }
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to root_path
       end
     end
   end
