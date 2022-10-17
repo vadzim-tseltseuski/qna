@@ -37,6 +37,7 @@ class Ability
     can :destroy, ActiveStorage::Attachment, record: { user_id: user.id }
 
     can :set_as_top, Answer, question: { user_id: user.id }
+    can :answers, Question
 
     alias_action :vote_plus, :vote_minus, to: :vote
     can :vote, [Question, Answer] do |votable|
@@ -45,6 +46,10 @@ class Ability
 
     can :delete_vote, [Question, Answer] do |votable|
       user.creator_of?(votable)
+    end
+
+    can %i[me others], User do |profile|
+      profile.id == user.id
     end
   end
 end

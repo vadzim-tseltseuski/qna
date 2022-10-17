@@ -44,6 +44,15 @@ gem 'cancancan'
 
 gem 'gon'
 
+# ouath
+gem 'doorkeeper'
+
+# serializers
+gem 'active_model_serializers', '~> 0.10'
+
+# json parse
+gem 'oj'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -77,7 +86,7 @@ group :test do
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
-  gem 'webdrivers'
+  gem 'webdrivers', '~> 5.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
