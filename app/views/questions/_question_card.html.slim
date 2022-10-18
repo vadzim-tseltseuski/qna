@@ -41,6 +41,9 @@
 
       = f.submit 'Save'
 
+
+  = render 'shared/subscription', question: @question, subscription: @question.subscriptions.find_by(user: current_user)
+
   .question-comments
     h3 Comments
     = render 'shared/comments', commentable: @question

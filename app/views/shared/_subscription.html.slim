@@ -1,0 +1,8 @@
+.subscription
+  - if current_user
+    - unless subscription
+      = link_to 'Subscribe to new answers', question_subscriptions_path(question), method: :post, remote: true,
+              data: { type: :js }, class: 'subscribe-button'
+    - else
+      = link_to 'Unsubscribe', subscription_path(subscription), method: :delete, remote: true,
+              data: { type: :js }, class: 'unsubscribe-button'

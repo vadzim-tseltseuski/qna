@@ -111,8 +111,10 @@ GEM
     case_transform (0.2)
       activesupport
     childprocess (4.1.0)
+    chronic (0.10.2)
     cocoon (1.2.15)
     concurrent-ruby (1.1.10)
+    connection_pool (2.3.0)
     crass (1.0.6)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -159,6 +161,11 @@ GEM
       addressable (~> 2.7)
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
+    letter_opener_web (2.0.0)
+      actionmailer (>= 5.2)
+      letter_opener (~> 1.7)
+      railties (>= 5.2)
+      rexml
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -176,6 +183,8 @@ GEM
     msgpack (1.5.4)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    mustermann (2.0.2)
+      ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
@@ -253,6 +262,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.8.0)
     regexp_parser (2.5.0)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -297,6 +307,15 @@ GEM
     semantic_range (3.0.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
+    sidekiq (6.5.7)
+      connection_pool (>= 2.2.5)
+      rack (~> 2.0)
+      redis (>= 4.5.0, < 5)
+    sinatra (2.2.2)
+      mustermann (~> 2.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.2)
+      tilt (~> 2.0)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -344,6 +363,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.0)
@@ -369,6 +390,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  letter_opener_web (~> 2.0)
   listen (~> 3.3)
   oj
   omniauth
@@ -385,6 +407,8 @@ DEPENDENCIES
   sassc (= 2.2.0)
   selenium-webdriver (>= 4.0.0.rc1)
   shoulda-matchers (~> 5.0)
+  sidekiq
+  sinatra
   slim-rails
   spring
   turbolinks (~> 5)
@@ -392,6 +416,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   webdrivers (~> 5.2)
   webpacker (~> 5.0)
+  whenever
 
 RUBY VERSION
    ruby 2.7.5p203

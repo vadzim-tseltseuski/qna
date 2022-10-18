@@ -10,6 +10,7 @@ require 'rspec/rails'
 require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'cancan/matchers'
+require 'sidekiq/testing'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -82,6 +83,7 @@ RSpec.configure do |config|
 end
 
 OmniAuth.config.test_mode = true
+Sidekiq::Testing.fake!
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
