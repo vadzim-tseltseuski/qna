@@ -19,6 +19,8 @@ class Answer < ApplicationRecord
 
   validates :body, :user, presence: true
 
+  after_create_commit :notify_questions_subscribers
+
   def set_as_top!
     question.update(top_answer: self)
     question.reward&.update(answer: self)
@@ -26,5 +28,11 @@ class Answer < ApplicationRecord
 
   def top?
     question.top_answer_id == id
+  end
+
+  private
+
+  def notify_questions_subscribers
+    AnswerNotifyJob.perform_later(self)
   end
 end

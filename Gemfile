@@ -29,6 +29,7 @@ gem 'bootstrap'
 gem 'devise'
 gem 'jquery-rails'
 gem 'letter_opener'
+gem 'letter_opener_web', '~> 2.0'
 gem 'slim-rails'
 
 # For nested forms
@@ -46,6 +47,11 @@ gem 'gon'
 
 # ouath
 gem 'doorkeeper'
+
+# background jobs
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'whenever', require: false
 
 # serializers
 gem 'active_model_serializers', '~> 0.10'
