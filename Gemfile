@@ -3,7 +3,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.6'
@@ -31,6 +30,10 @@ gem 'jquery-rails'
 gem 'letter_opener'
 gem 'letter_opener_web', '~> 2.0'
 gem 'slim-rails'
+gem 'mysql2'
+gem 'thinking-sphinx'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 
 # For nested forms
 gem 'cocoon'
@@ -81,6 +84,11 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-passenger', require: false
 end
 
 group :test do
