@@ -34,6 +34,7 @@ gem 'slim-rails'
 gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'ed25519'
+gem 'i18n', '1.10'
 
 # For nested forms
 gem 'cocoon'
