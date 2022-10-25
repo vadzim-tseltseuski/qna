@@ -1,0 +1,15 @@
+current directory: /Users/vadimteltevski/qna/qna/vendor/cache/ruby/2.7.0/gems/bootsnap-1.13.0/ext/bootsnap
+/Users/vadimteltevski/.rubies/ruby-2.7.5/bin/ruby -I /Users/vadimteltevski/.rubies/ruby-2.7.5/lib/ruby/2.7.0 -r ./siteconf20221026-62138-d35vnj.rb extconf.rb
+creating Makefile
+
+current directory: /Users/vadimteltevski/qna/qna/vendor/cache/ruby/2.7.0/gems/bootsnap-1.13.0/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /Users/vadimteltevski/qna/qna/vendor/cache/ruby/2.7.0/gems/bootsnap-1.13.0/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/vadimteltevski/qna/qna/vendor/cache/ruby/2.7.0/gems/bootsnap-1.13.0/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20221026-62138-12dhoug/bootsnap

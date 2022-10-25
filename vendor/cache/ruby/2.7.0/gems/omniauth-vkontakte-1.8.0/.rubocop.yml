@@ -1,0 +1,16 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.6
+Layout/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
+  Max: 101
+Lint/DuplicateBranch:
+  Enabled: false
+Naming/FileName:
+  Exclude:
+    - 'lib/omniauth-vkontakte.rb'
