@@ -34,6 +34,7 @@ gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
+gem 'i18n'
 
 # For nested forms
 gem 'cocoon'
