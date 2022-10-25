@@ -431,7 +431,7 @@ DEPENDENCIES
   ed25519
   factory_bot_rails
   gon
-  i18n
+  i18n (~> 1.12.0)
   jbuilder (~> 2.7)
   jquery-rails
   launchy
