@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 gem 'aws-sdk-s3', require: false
 gem 'bootstrap'
 gem 'devise'
@@ -31,10 +31,8 @@ gem 'jquery-rails'
 gem 'letter_opener'
 gem 'letter_opener_web', '~> 2.0'
 gem 'slim-rails'
-gem 'mysql2'
-gem 'thinking-sphinx'
 gem 'ed25519'
-gem 'i18n', '1.10'
+gem 'i18n', '~> 1.12'
 
 # For nested forms
 gem 'cocoon'
@@ -68,6 +66,7 @@ gem 'oj'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'spring'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
