@@ -33,6 +33,7 @@ gem 'letter_opener_web', '~> 2.0'
 gem 'slim-rails'
 gem 'ed25519'
 gem 'i18n', '~> 1.12'
+gem 'activesupport'
 
 # For nested forms
 gem 'cocoon'
