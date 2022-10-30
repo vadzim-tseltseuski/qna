@@ -51,6 +51,7 @@ gem 'gon'
 # ouath
 gem 'doorkeeper'
 
+
 # background jobs
 gem 'sidekiq'
 gem 'sinatra', require: false
@@ -67,7 +68,8 @@ gem 'oj'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'spring'
+
+gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -90,6 +92,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 group :test do
