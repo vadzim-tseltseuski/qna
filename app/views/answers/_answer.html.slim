@@ -1,38 +1,39 @@
-= content_tag :div, class: "answer-card", data: { answer_id: answer.id } do
-  p class="answer-text #{'top-answer' if answer.top?}"= answer.body
-  p Answer rating:
-  = render "shared/votes", votable: answer
-  - if answer.files.attached?
-    - answer.files.each do |file|
-      .file id="file-#{file.id}"
-        p= link_to file.filename.to_s, url_for(file)
-        - if current_user && can?(:destroy, answer)
-          span = link_to 'Delete file', file_path(file, format: :js), method: :delete, remote: true, class: 'delete-file'
+- cache answer do
+  = content_tag :div, class: "answer-card", data: { answer_id: answer.id } do
+    p class="answer-text #{'top-answer' if answer.top?}"= answer.body
+    p Answer rating:
+    = render "shared/votes", votable: answer
+    - if answer.files.attached?
+      - answer.files.each do |file|
+        .file id="file-#{file.id}"
+          p= link_to file.filename.to_s, url_for(file)
+          - if current_user && can?(:destroy, answer)
+            span = link_to 'Delete file', file_path(file, format: :js), method: :delete, remote: true, class: 'delete-file'
 
-  = render 'shared/links', links: answer.links if answer.links.exists?
+    = render 'shared/links', links: answer.links if answer.links.exists?
 
-  - if current_user && can?(:update, answer)
-    p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-    p= link_to 'Delete answer', answer_path(answer), remote: true, method: :delete
+    - if current_user && can?(:update, answer)
+      p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+      p= link_to 'Delete answer', answer_path(answer), remote: true, method: :delete
 
-  - if current_user && can?(:set_as_top, answer)
-    p= link_to 'Mark as top',
-                set_as_top_answer_path(answer),
-                method: :post, remote: true,
-                class: "#{'hidden' if answer.top?}"
+    - if current_user && can?(:set_as_top, answer)
+      p= link_to 'Mark as top',
+                  set_as_top_answer_path(answer),
+                  method: :post, remote: true,
+                  class: "#{'hidden' if answer.top?}"
 
-  = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-    p
-    = f.label :body, 'Your answer'
-    = f.text_area :body
-    p
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+    = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+      p
+      = f.label :body, 'Your answer'
+      = f.text_area :body
+      p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
 
-    p= link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
-    = f.submit 'Save'
+      p= link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
+      = f.submit 'Save'
 
-  .answer-comments
-    h3 Comments
-    = render 'shared/comments', commentable: answer
-    = render 'shared/comment_form', commentable: answer
+    .answer-comments
+      h3 Comments
+      = render 'shared/comments', commentable: answer
+      = render 'shared/comment_form', commentable: answer

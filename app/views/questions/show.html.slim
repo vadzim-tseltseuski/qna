@@ -1,30 +1,31 @@
 .question-errors
 = render 'shared/errors', resource: @question
-= render 'question_card'
+- cache @question do
+  = render 'question_card'
 
-h2 Answers
-.answer-errors
-  = render 'shared/errors', resource: @answer
-.answers.answers-list
-  -if @question.answers.present?
-    = render @question.sorted_answers
-  -else
-    .no_answers
-      p There are no any answers
+  h2 Answers
+  .answer-errors
+    = render 'shared/errors', resource: @answer
+  .answers.answers-list
+    -if @question.answers.present?
+      = render @question.sorted_answers
+    -else
+      .no_answers
+        p There are no any answers
 
 
-p New Answer
-= form_with model: [@question, @answer], class: 'new-answer', local: false, data: { type: :json } do |f|
-  p
-  = f.label :body, class: "form-label"
-  = f.text_area :body, class: "form-control"
-  p
-  = f.label :files, class: "form-label"
-  = f.file_field :files, class: "form-control", multiple: true, direct_upload: true
-  p Links:
-  #links
-    = f.fields_for :links do |link|
-      = render 'shared/links_fields', f: link
-    = link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
+  p New Answer
+  = form_with model: [@question, @answer], class: 'new-answer', local: false, data: { type: :json } do |f|
     p
-    = f.submit 'Send answer'
+    = f.label :body, class: "form-label"
+    = f.text_area :body, class: "form-control"
+    p
+    = f.label :files, class: "form-label"
+    = f.file_field :files, class: "form-control", multiple: true, direct_upload: true
+    p Links:
+    #links
+      = f.fields_for :links do |link|
+        = render 'shared/links_fields', f: link
+      = link_to_add_association 'add', f, :links, partial: 'shared/links_fields'
+      p
+      = f.submit 'Send answer'
